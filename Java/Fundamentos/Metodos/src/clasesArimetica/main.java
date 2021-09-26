@@ -23,6 +23,9 @@ public class main {
         
         resultado = arimetica1.sumarConRetornoYArgumentos(3, 4);
         System.out.println("resultado es: "+resultado);
+        
+        Arimetica arimetica2 = new Arimetica(10,12);
+        arimetica2.sumar();
     }
     
 }

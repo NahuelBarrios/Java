@@ -17,6 +17,21 @@ public class Arimetica {
     int a;
     int b;
     
+    //Constructores. Si tengo que hacer un constructor con pase de argumentos.. si o si tengo que inicializar el vacio perreke
+    public Arimetica()
+    {
+        //Cuando se llama el constructor lo que hace es hacer un espacio en la memoria
+        System.out.println("Se esta ejecutando");
+    }
+    
+    public Arimetica(int a, int b)
+    {
+        this.a= a;
+        this.b = b;
+         System.out.println("Se esta ejecutando el constructor con argumentos");     
+    }
+    
+    
     // Metodos
     
     public void sumar()
