@@ -7,10 +7,17 @@ public class Empleado extends Persona{ // heredamos Persona.
     private double sueldo;
     private static int contadorEmpleado;
 
+    
     //Constructor
-    public Empleado(String nombre, double sueldo) {
-        super(nombre);//Para utilizar un constructor de la clase padre, se la invoca con la palabra "super"
+    
+    public Empleado(){
         this.idEmpleado = ++Empleado.contadorEmpleado;// Es buena practica ponerle el nombre de la clase a mi variable estatica
+    } 
+    
+    public Empleado(String nombre, double sueldo) {
+        //super(nombre);  //Para utilizar un constructor de la clase padre, se la invoca con la palabra "super"
+        this();// Significa el constructor "Empleado" Sin parametros. Si este esta activo. no puedo usar "super"
+        this.nombre = nombre; // Como tengo la variable nombre de la clase Persona en "protected" Puedo acceder directamente.
         this.sueldo = sueldo;
     }
     
