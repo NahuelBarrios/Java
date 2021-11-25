@@ -14,7 +14,7 @@ public class Gerente extends Empleado{
     @Override // se sobreescribe el metodo de la clase padre.
      public String obtenerDetalles()
     {
-        return super.obtenerDetalles() + ", departamento: " + this.departamento;
+        return super.obtenerDetalles() +  ", departamento: " + this.departamento;
     }
     
     
