@@ -8,10 +8,10 @@ public class PersonaDaoJDBC implements PersonaDao{
 
     //Atributos
     private Connection userConn;
-    private static final String SQL_INSERT = "INSERT INTO test2.personas(nombre, apellido) VALUES(?, ?)";
-    private static final String SQL_UPDATE = "UPDATE test2.personas SET nombre = ?, apellido = ? WHERE id_personas = ?";
-    private static final String SQL_DELETE = "DELETE FROM test2.personas WHERE id_personas = ?";
-    private static final String SQL_SELECT = "SELECT id_personas, nombre, apellido FROM test2.personas";
+    private static final String SQL_INSERT = "INSERT INTO test.personas(nombre, apellido) VALUES(?, ?)";
+    private static final String SQL_UPDATE = "UPDATE test.personas SET nombre = ?, apellido = ? WHERE id_personas = ?";
+    private static final String SQL_DELETE = "DELETE FROM test.personas WHERE id_personas = ?";
+    private static final String SQL_SELECT = "SELECT id_personas, nombre, apellido FROM test.personas";
 
     //Constructores
     public PersonaDaoJDBC() {
@@ -38,7 +38,7 @@ public class PersonaDaoJDBC implements PersonaDao{
         }finally{
             try {
                 Conexion.close(stmt);
-                if(userConn != null)
+                if(this.userConn != null)
                 {
                    Conexion.close(conn);
                 }

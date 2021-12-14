@@ -10,35 +10,34 @@ public class TestPersona {
 
     public static void main(String[] args) {
 
-        Connection conexionAux = null;
-
+        
+        Connection conexion = null;
         try {
-            conexionAux = Conexion.getConnection();
-            if(conexionAux.getAutoCommit())
-            {
-                conexionAux.setAutoCommit(false);
+            conexion = Conexion.getConnection();
+            if (conexion.getAutoCommit()) {
+                conexion.setAutoCommit(false);
+            }
+
+            PersonaDao personaDao = new PersonaDaoJDBC(conexion);
+            
+            List<PersonaDTO> personas = personaDao.select();
+            
+            for(PersonaDTO persona: personas){
+                System.out.println("Persona DTO:" + persona);
             }
             
-            var personaDaoAux = new PersonaDaoJDBC(conexionAux);
+            PersonaDTO personaNew = new PersonaDTO();
+            personaNew.setNombre("Candy");
+            personaNew.setApellido("Perreo");
+            personaDao.insert(personaNew);  
             
-//            PersonaDTO persona1 = new PersonaDTO("Nahuel","Barrios");
-//            personaDaoAux.update(persona1);
-//              PersonaDTO persona1 = new PersonaDTO();
-              List<PersonaDTO> personas = personaDaoAux.select();
-              for(PersonaDTO persona: personas)
-              {
-                  System.out.println("persona = " + persona);
-              }
-              
-            
-            conexionAux.commit();
-            System.out.println("Se ha hecho commit de la transicion");
+            conexion.commit();
             
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
             System.out.println("Entramos al rollBack");
             try {
-                conexionAux.rollback();
+                conexion.rollback();
             } catch (SQLException ex1) {
                 ex1.printStackTrace(System.out);
             }

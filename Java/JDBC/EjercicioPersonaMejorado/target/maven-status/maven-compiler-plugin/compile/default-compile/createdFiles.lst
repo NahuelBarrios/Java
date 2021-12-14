@@ -3,3 +3,4 @@ personas\jdbc\Conexion.class
 personas\jdbc\PersonaDao.class
 personas\jdbc\PersonaDaoJDBC.class
 test\TestPersona.class
+.netbeans_automatic_build
