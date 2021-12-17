@@ -10,16 +10,27 @@ public class Servlet extends HttpServlet{
     @Override
     protected void doPost(HttpServletRequest request,HttpServletResponse response) throws IOException
     {
+//        response.setContentType("text/html;charset=UTF-8");
+//        PrintWriter out = response.getWriter();
+//        
+//        String usuario = request.getParameter("usuario"); // Obtengo el usuario que est en el html. tengo que pasar si o si el "name"
+//        String password = request.getParameter("password");
+//        String tecnologias[] = request.getParameterValues("tecnologias");
+//        String genero = request.getParameter("genero");
+//        String ocupacion = request.getParameter("ocupacion");
+//        String musica[] = request.getParameterValues("musica");
+//        String comentarios = request.getParameter("comentarios");
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        
-        String usuario = request.getParameter("usuario"); // Obtengo el usuario que est en el html. tengo que pasar si o si el "name"
+
+        String usuario = request.getParameter("usuario");
         String password = request.getParameter("password");
-        String tecnologias[] = request.getParameterValues("tecnologias");
+        String tecnologias[] = request.getParameterValues("tecnologia");
         String genero = request.getParameter("genero");
         String ocupacion = request.getParameter("ocupacion");
         String musica[] = request.getParameterValues("musica");
         String comentarios = request.getParameter("comentarios");
+
         
          out.print("<html>");
         out.print("<head>");
