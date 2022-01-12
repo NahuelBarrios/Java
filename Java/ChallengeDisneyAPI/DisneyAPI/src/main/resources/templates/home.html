@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+    xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Home</title>
+        <meta charset="UTF-8"/>
+    </head>
+    <body>
+        <header th:replace="layouts/base-layout :: header"></header>
+        <h1>Index</h1>
+        <br/><br/>
+        <a th:href="@{characters/list-all}">Lista characteres</a>
+        <br/><br/>
+        <a th:href="@{admin/panel-admin}">Panel Admin</a>
+        <br/><br/>
+        
+    </body>
+</html>

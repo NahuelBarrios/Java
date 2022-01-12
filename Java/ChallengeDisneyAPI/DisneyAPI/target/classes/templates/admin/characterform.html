@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Character Form</title>
+        <meta charset="UTF-8"/>
+    </head>
+    <body>
+        <h1>Character</h1>
+
+        <div th:if="${characterSave}" th:text="${characterSave}"></div>
+        <form th:action="@{/admin/savecharacter}" th:object="${character}" method="post" enctype="multipart/form-data">
+            <select th:if="${movielist != null}" th:field="*{movie}">
+                <option th:each="movieAux : ${movielist}" th:value="${movieAux.idMovie}" th:text="${movieAux.titleMovie}">    <!--  th:value="${movieparameter.idMovie}" th:text="${movieparameter.titleMovie}" -->
+                </option>
+            </select>
+            <input type="hidden" name="idCharacter" th:field="*{idCharacter}"/> <!-- Le ponemos el hidden. ya que sino al editar, no guardamos el Id y no nos va a editar la info, va a agregar otro personaje con la nueva info y la vieja sigue igual. En el caso de hacer un insert, el id va a ser null entonces se hace un add. pero si tiene valor, se hace un update -->
+            <br/><br/>
+            <label for="imageCharacter">Imagen:</label>
+            <input type="file" name="file" />
+            <br/><br/>
+            <label for="nameCharacter">Nombre Personaje:</label>
+            <input type="text" name="nameCharacter" th:field="*{nameCharacter}"/>
+            <br/><br/>
+            <label for="ageCharacter">Edad:</label>
+            <input type="text" name="ageCharacter" th:field="*{ageCharacter}"/>
+            <br/><br/>
+            <label for="weightCharacter">Peso:</label>
+            <input type="text" name="weightCharacter" th:field="*{weightCharacter}"/>
+            <br/><br/>
+            <label for="historyCharacter">Historia:</label>
+            <input type="text" name="historyCharacter" th:field="*{historyCharacter}"/>
+            <br/><br/>
+            <input type="submit" name="guardar" value="Guardar"/>
+        </form>
+
+        <br/><br/>
+        <a th:href="@{/}">Volver al inicio</a>
+
+    </body>
+</html>
