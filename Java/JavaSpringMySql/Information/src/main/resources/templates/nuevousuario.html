@@ -15,10 +15,12 @@
                 <br/><br/>
                 <div class="mb-3">
                     <label for="nombreUsuario" class="form-label">Nombre Usuario</label>
-                    <input type="text" class="form-control" id="nombreUsuario" placeholder="nombre" th:field="*{nombreUsuario}"/>
+                    <input type="text" name="nombreUsuario" class="form-control" id="nombreUsuario" placeholder="nombre" th:field="*{nombreUsuario}"/>
+                    <span th:if="${#fields.hasErrors('nombreUsuario')}" th:errors="*{nombreUsuario}"></span>
                     <br/>
                     <label for="apellidoUsuario" class="form-label">Apellido Usuario</label>
-                    <input type="text" class="form-control" id="apellidoUsuario" placeholder="apellido" th:field="*{apellidoUsuario}"/>
+                    <input type="text" name="apellidoUsuario" class="form-control" id="apellidoUsuario" placeholder="apellido" th:field="*{apellidoUsuario}"/>
+                    <span th:if="${#fields.hasErrors('apellidoUsuario')}" th:errors="*{apellidoUsuario}"></span>
                     <br/>
                     <button type="submit" class="btn btn-dark">Agregar</button>
                 </div>

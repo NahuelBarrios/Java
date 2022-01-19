@@ -2,6 +2,7 @@ package com.informacion.entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import lombok.Data;
 
 @Data
@@ -14,7 +15,10 @@ public class Usuario implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idUsuario;
+    
+    @NotEmpty
     private String nombreUsuario;
+    @NotEmpty
     private String apellidoUsuario;
     
 }

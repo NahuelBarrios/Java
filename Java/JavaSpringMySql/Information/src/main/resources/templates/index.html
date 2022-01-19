@@ -38,7 +38,7 @@
                         <td th:text="${gasto.nombreGasto}"></td>
                         <td th:text="${gasto.totalGasto}"></td>
                         <td th:text="${gasto.creationDate}"></td>
-                        <td th:each="usuarioAux: ${listausuarios}" th:if="${gasto.usuario == usuarioAux.idUsuario}" th:text="${usuarioAux.nombreUsuario}"></td>
+                        <td th:each="usuarioAux: ${listausuarios}" th:if="${gasto.usuario.getIdUsuario == usuarioAux.idUsuario}" th:text="${usuarioAux.nombreUsuario}"></td>
                         <td> <a class="p-2 mb-3 bg-warning bg-gradient text-dark text-decoration-none rounded fs-6" th:href="@{/gastos/editarGasto/} + ${gasto.idGasto}" th:text="Editar"/></td>
                         <td> <a class="p-2 mb-3 bg-danger bg-gradient text-white text-decoration-none rounded fs-6" th:href="@{/gastos/eliminarGasto/} + ${gasto.idGasto}" th:text="Eliminar"/></td>
                     </tr>
