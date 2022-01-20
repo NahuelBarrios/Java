@@ -3,6 +3,8 @@ package com.informacion.controller;
 import com.informacion.entities.Gastos;
 import com.informacion.serviceImpl.GastosServiceImpl;
 import com.informacion.serviceImpl.UsuarioServiceImpl;
+import java.util.ArrayList;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +19,52 @@ public class GastosController {
     
     @Autowired
     private UsuarioServiceImpl usuarioService;
+    
+    @PostMapping("/gastosUsuario")
+    public String buscador(@RequestParam("usuarioGastos") String usuarioGastos, Model model)
+    {
+        var listaGastos = gastosService.listaGastos();
+        var listaUsuarios = usuarioService.listaUsuario();
+        List<Object> listaNueva = new ArrayList<Object>(); // Tengo que crear con un arrayList
+//        List<Usuario> listaNueva = null;
+//        
+        if(usuarioGastos != null && usuarioGastos.isEmpty())
+        {
+            return "redirect:/";
+        }
+//        
+//        for(var usuario: listaUsuarios)
+//        {
+//            if(usuario.getNombreUsuario().equals(usuarioGastos))
+//            {
+//                listaNueva.add(usuario);
+//            }
+//        }
+//        
+//        if(listaNueva != null)
+//        {
+//            model.addAttribute("listaUsuarios", listaNueva);
+//        }
+    
+        for(var gasto: listaGastos)
+        {
+            if(gasto.getUsuario().getNombreUsuario().equals(usuarioGastos))
+            {
+                listaNueva.add(gasto);
+            }
+        }
+
+        if(listaNueva != null)
+        {
+            model.addAttribute("listaGastosBuscador", listaNueva);
+            model.addAttribute("listausuarios", listaUsuarios);
+        }
+        else{
+            model.addAttribute("listaGastosBuscador", "No tiene Gastos");
+        }
+        
+        return "resultadobuscador";
+    }
     
     @GetMapping("/agregarGasto")
     public String agregarGastos(Gastos gastos,Model model)

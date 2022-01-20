@@ -11,10 +11,12 @@
         <header th:replace="Layout/Layout :: header"></header>
         <br/>
         <h1 class="mx-auto" style="width: 400px;">Lista de Gastos</h1>
+        <form class="d-flex" method="POST" th:action="@{/gastos/gastosUsuario}">
+            <input class="form-control me-2" type="text" name="usuarioGastos" placeholder="Buscar Usuario" aria-label="Search" style="width: 20%"/>
+            <button class="btn btn-outline-success" type="submit">Buscar</button>
+        </form>
         <br/><br/>
-        
         <a th:href="@{/gastos/agregarGasto}" class="p-2 mb-2 bg-success bg-gradient text-white rounded fs-6 text-decoration-none">+ Agregar Nuevo Gasto</a>
-        <br/><br/>
         <a th:href="@{/usuario/agregarUsuario}" class="p-2 mb-2 bg-success bg-gradient text-white rounded fs-6 text-decoration-none">+ Agregar Nuevo Usuario</a>
         <br/><br/>
         <div>
