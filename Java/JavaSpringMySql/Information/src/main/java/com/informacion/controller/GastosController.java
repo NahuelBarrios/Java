@@ -76,9 +76,10 @@ public class GastosController {
     }
     
     @PostMapping("/guardarGasto")
-    public String guardarGastos(Gastos gastos)
+    public String guardarGastos(Gastos gastos,Model model)
     {
         gastosService.saveGastos(gastos);
+        model.addAttribute("mensaje", "Gasto Agregado");
         
         return "redirect:/";
     }
@@ -88,6 +89,11 @@ public class GastosController {
     {
         gasto = gastosService.encontrarGastos(gasto);
         model.addAttribute("gastos", gasto);
+       // agregado
+        var usuarios = usuarioService.listaUsuario();
+        
+        model.addAttribute("usuarios", usuarios);
+        
         return "nuevogasto";
     }
     
