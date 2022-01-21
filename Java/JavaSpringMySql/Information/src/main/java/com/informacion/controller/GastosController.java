@@ -26,7 +26,9 @@ public class GastosController {
         var listaGastos = gastosService.listaGastos();
         var listaUsuarios = usuarioService.listaUsuario();
         List<Object> listaNueva = new ArrayList<Object>(); // Tengo que crear con un arrayList
+        double contador = 0;
 //        List<Usuario> listaNueva = null;
+
 //        
         if(usuarioGastos != null && usuarioGastos.isEmpty())
         {
@@ -50,6 +52,7 @@ public class GastosController {
         {
             if(gasto.getUsuario().getNombreUsuario().equals(usuarioGastos))
             {
+                contador = contador + gasto.getTotalGasto();
                 listaNueva.add(gasto);
             }
         }
@@ -58,6 +61,7 @@ public class GastosController {
         {
             model.addAttribute("listaGastosBuscador", listaNueva);
             model.addAttribute("listausuarios", listaUsuarios);
+            model.addAttribute("contador", contador);
         }
         else{
             model.addAttribute("listaGastosBuscador", "No tiene Gastos");

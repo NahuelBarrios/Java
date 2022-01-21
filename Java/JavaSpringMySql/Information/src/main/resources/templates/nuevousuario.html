@@ -9,7 +9,7 @@
     </head>
     <body>
         <header th:replace="Layout/Layout :: header"></header>
-        <div>
+        <div >
             <form th:action="@{/usuario/guardarUsuario}" method="post" th:object="${usuario}" enctype="multipart/form-data">
                 <input type="hidden" name="idUsuario" th:field="*{idUsuario}"/> <!-- Le ponemos el hidden. ya que sino al editar, no guardamos el Id y no nos va a editar la info, va a agregar otro personaje con la nueva info y la vieja sigue igual. En el caso de hacer un insert, el id va a ser null entonces se hace un add. pero si tiene valor, se hace un update -->
                 <br/><br/>
