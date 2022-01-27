@@ -1,9 +1,9 @@
 package com.catalogo.service;
 
+import com.catalogo.dtos.UsuarioDTO;
 import com.catalogo.entities.Usuario;
 import com.catalogo.repository.UsuarioRepository;
 import java.util.List;
-import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +13,18 @@ public class UsuarioServicio {
  
     @Autowired
     private UsuarioRepository repo;
+    
+    public Usuario crearNuevoUsuario(UsuarioDTO usuarioDto)
+    {
+        Usuario usuario = new Usuario();
+        usuario.setNombreUsuario(usuarioDto.getNombreUsuario());
+        usuario.setApellidoUsuario(usuarioDto.getApellidoUsuario());
+        usuario.setDireccionUsuario(usuarioDto.getDireccionUsuario());
+        usuario.setTelefono(usuarioDto.getTelefono());
+        
+        return repo.save(usuario);
+    }
+    
     
     public List<Usuario> listarPersonajes()
     {
@@ -34,7 +46,7 @@ public class UsuarioServicio {
         return repo.findById(usuario.getIdUsuario()).orElse(null);
     }
     
-    public Optional<Usuario> encontrarUsuarioByNombre(Usuario usuario)
+    public Usuario encontrarUsuarioByNombre(Usuario usuario)
     {
         return repo.findByNombreUsuario(usuario.getNombreUsuario());
     }
