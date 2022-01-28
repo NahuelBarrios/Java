@@ -49,8 +49,31 @@ public class UsuarioController {
          }
          else{
              rta.isOk = false;
-             rta.message = "No existe ese id de usuario";
+             rta.message = "No existe ese id de usuario para modificar";
              return ResponseEntity.badRequest().body(rta);
          }
+    }
+    
+    @DeleteMapping("/eliminar/{idUsuario}")
+    public ResponseEntity<GenericResponse> deleteUsuario(@PathVariable Long idUsuario)
+    {
+        GenericResponse rta = new GenericResponse();
+        
+        Usuario usuario = usuarioService.findByIdUsuario(idUsuario);
+        
+        if(usuario.getIdUsuario() != null)
+        {
+            rta.isOk = true;
+            rta.message = "Se borro el usuario";
+            usuarioService.borrarUsuario(usuario);
+            return ResponseEntity.ok(rta);
+        }
+        else{
+           rta.isOk = false;
+             rta.message = "No existe ese id de usuario para eliminar";
+             return ResponseEntity.badRequest().body(rta);
+            
+        }
+        
     }
 }
