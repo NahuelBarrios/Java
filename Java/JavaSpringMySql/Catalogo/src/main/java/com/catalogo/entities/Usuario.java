@@ -1,6 +1,7 @@
 package com.catalogo.entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
@@ -12,12 +13,16 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idUsuario;
     
+    @NotNull
     private String nombreUsuario;
     
+    @NotNull
     private String apellidoUsuario;
     
+    @NotNull
     private String direccionUsuario;
     
+    @NotNull
     private String telefono;
     
 }
