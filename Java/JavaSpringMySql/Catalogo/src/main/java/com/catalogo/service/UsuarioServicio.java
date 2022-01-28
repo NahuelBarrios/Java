@@ -41,9 +41,9 @@ public class UsuarioServicio {
         repo.delete(usuario);
     }
     
-    public Usuario encontrarUsuarioById(Usuario usuario)
+    public Usuario findByIdUsuario(Long idUsuario)
     {
-        return repo.findById(usuario.getIdUsuario()).orElse(null);
+        return repo.findByIdUsuario(idUsuario);
     }
     
     public Usuario encontrarUsuarioByNombre(Usuario usuario)
