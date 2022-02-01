@@ -46,9 +46,9 @@ public class UsuarioServicio {
         return repo.findByIdUsuario(idUsuario);
     }
     
-    public Usuario encontrarUsuarioByNombre(Usuario usuario)
+    public List<Usuario> encontrarUsuarioByNombre(String nombreUsuario)
     {
-        return repo.findByNombreUsuario(usuario.getNombreUsuario());
+        return repo.findByNombreUsuario(nombreUsuario);
     }
     
 }

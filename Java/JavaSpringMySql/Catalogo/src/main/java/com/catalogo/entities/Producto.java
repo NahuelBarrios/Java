@@ -31,7 +31,4 @@ public class Producto implements Serializable{
     @DateTimeFormat(iso = ISO.DATE)
     private Date creationDate; 
     
-    @OneToMany
-    @JoinColumn(name = "usuarioGasto")
-    private List<Usuario> usuario = new ArrayList<>();
 }
