@@ -3,6 +3,7 @@ package com.catalogo.service;
 import com.catalogo.dtos.ProductoDTO;
 import com.catalogo.entities.Producto;
 import com.catalogo.repository.ProductoRepository;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,8 +25,13 @@ public class ProductoServicio {
         return repo.save(producto);
     }
     
-     public Producto buscarNombreProducto(String nombre){
-         return repo.findByNombreProducto(nombre);
+    public List<Producto> listarProductos()
+    {
+        return (List<Producto>)repo.findAll();
+    }
+    
+    public List<Producto> buscarNombreProducto(String nombre){
+         return (List<Producto>) repo.findByNombreProducto(nombre);
      }
  
     public Producto buscarIdProducto(Long idProducto){
