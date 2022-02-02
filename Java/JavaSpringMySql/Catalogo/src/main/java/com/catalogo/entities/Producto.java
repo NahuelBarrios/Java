@@ -1,9 +1,7 @@
 package com.catalogo.entities;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.*;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
