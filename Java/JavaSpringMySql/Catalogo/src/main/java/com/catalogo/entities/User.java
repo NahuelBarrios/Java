@@ -1,6 +1,7 @@
 package com.catalogo.entities;
 
 import java.util.List;
+import java.util.Set;
 import javax.persistence.*;
 import javax.persistence.UniqueConstraint;
 import lombok.Data;
@@ -26,5 +27,5 @@ public class User {
     @JoinTable(name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
-    private List<Rol> roles;
+    private Set<Rol> roles;
 }
