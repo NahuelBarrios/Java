@@ -5,11 +5,14 @@ import com.example.dtos.ProductoDTO;
 import com.example.entities.Cliente;
 import com.example.entities.Producto;
 import com.example.models.response.GenericResponse;
+import com.example.models.response.ProductoResponse;
 import com.example.service.ClienteService;
 import com.example.service.ProductoService;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -75,7 +78,27 @@ public class ProductoController {
             rta.message = "El cliente ya esta agregado en la lista";
             return ResponseEntity.badRequest().body(rta);
         }
-
     }
 
+    @GetMapping("/listaProductos")
+    public ResponseEntity<List<ProductoResponse>> listarProductos()
+    {
+        List<Producto> listaProducto = serviceP.listarProducto();
+        List<ProductoResponse> listaProductoResponse = new ArrayList<>();
+        
+        if(listaProducto != null)
+        {
+            for(Producto producto: listaProducto)
+            {
+                ProductoResponse productoResponse = new ProductoResponse(producto.getNombreProducto(),producto.getCliente());
+                listaProductoResponse.add(productoResponse);
+            }
+            return ResponseEntity.ok(listaProductoResponse);
+        }else{
+            return ResponseEntity.noContent().build();
+        }
+        
+    }
+    
+    
 }

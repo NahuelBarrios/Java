@@ -22,7 +22,7 @@ public class ProductoService {
         return repoP.save(producto);
     }
     
-    public List<Producto> listarClientes()
+    public List<Producto> listarProducto()
     {
         return (List<Producto>)repoP.findAll();
     }
