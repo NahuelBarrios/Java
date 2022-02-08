@@ -25,7 +25,7 @@ public class Producto {
     
     private String nombreProducto;
     
-    @OneToMany
+    @ManyToMany
     @JoinColumn(name = "productocliente")
     private List<Cliente> cliente = new ArrayList<>();
     

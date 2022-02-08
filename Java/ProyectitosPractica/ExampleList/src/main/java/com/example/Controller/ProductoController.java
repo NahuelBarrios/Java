@@ -100,5 +100,16 @@ public class ProductoController {
         
     }
     
+    @GetMapping(value="/produto", params="name")
+    public ResponseEntity<List<Producto>> listarProductoNombre(@RequestParam String nombreProducto)
+    {
+        List<Producto> listaProducto = serviceP.nombreBuscarProducto(nombreProducto);
+        
+        if(listaProducto.isEmpty())
+        {
+            return ResponseEntity.badRequest().build();
+        }
+        return ResponseEntity.ok(listaProducto);
+    }
     
 }
