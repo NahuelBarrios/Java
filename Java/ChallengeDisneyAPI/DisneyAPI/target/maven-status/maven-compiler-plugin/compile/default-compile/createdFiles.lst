@@ -1,0 +1,12 @@
+com\disney\entities\Personaje.class
+com\disney\Service\ServicioPelicula.class
+com\disney\repos\RepositoryGenero.class
+com\disney\DisneyApiApplication.class
+com\disney\Service\ServicioGenero.class
+com\disney\entities\Genero.class
+com\disney\dtos\PeliculaDTO.class
+com\disney\dtos\PersonajeDTO.class
+com\disney\repos\RepositoryPersonaje.class
+com\disney\Service\ServicioPersonaje.class
+com\disney\repos\RepositoryPelicula.class
+com\disney\entities\Pelicula.class
