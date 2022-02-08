@@ -1,5 +1,6 @@
 package com.example.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,8 +25,8 @@ public class Producto {
     
     private String nombreProducto;
     
-    @OneToMany
+    @ManyToMany
     @JoinColumn(name = "productocliente")
-    private List<Cliente> cliente;
+    private List<Cliente> cliente = new ArrayList<>();
     
 }
