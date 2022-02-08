@@ -31,12 +31,18 @@ public class TicketController {
 
         GenericResponse rta = new GenericResponse();
 
-        Ticket ticket = servicioT.crearTicket(ticketDTO);
+        if (ticketDTO != null) {
+            Ticket ticket = servicioT.crearTicket(ticketDTO);
 
-        rta.id = ticket.getIdTicket();
-        rta.isOk = true;
-        rta.message = "Ticket creado correctamente";
-        return ResponseEntity.ok(rta);
+            rta.id = ticket.getIdTicket();
+            rta.isOk = true;
+            rta.message = "Ticket creado correctamente";
+            return ResponseEntity.ok(rta);
+        }else{
+            rta.isOk = false;
+            rta.message = "No se ha creado el ticket";
+            return ResponseEntity.badRequest().body(rta);
+        }
 
     }
 
