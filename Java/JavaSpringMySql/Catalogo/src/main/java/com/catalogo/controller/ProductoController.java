@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,6 +22,7 @@ public class ProductoController {
     private ProductoServicio servicioP;
 
     @PostMapping("/crearProducto")
+    @PreAuthorize("hasAuthority('CLAIM_userType_ADMIN')")
     public ResponseEntity<GenericResponse> agregar(@RequestBody ProductoDTO productoDTO, BindingResult results) {
 
         GenericResponse rta = new GenericResponse();
@@ -42,6 +44,7 @@ public class ProductoController {
     }
 
     @PutMapping("/editarProducto/{idProducto}")
+    @PreAuthorize("hasAuthority('CLAIM_userType_ADMIN')")
     public ResponseEntity<GenericResponse> editar(@RequestBody ProductoDTO productoDTO, @PathVariable Long idProducto) {
         GenericResponse rta = new GenericResponse();
 
@@ -65,6 +68,7 @@ public class ProductoController {
     }
 
     @DeleteMapping("/eliminarProducto/{idProducto}")
+    @PreAuthorize("hasAuthority('CLAIM_userType_ADMIN')")
     public ResponseEntity<GenericResponse> eliminar(@PathVariable Long idProducto) {
         GenericResponse rta = new GenericResponse();
 

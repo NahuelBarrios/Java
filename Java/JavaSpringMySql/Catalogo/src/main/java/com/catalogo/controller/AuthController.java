@@ -35,17 +35,13 @@ public class AuthController {
     private PasswordEncoder passwordEncoder;
  
     @PostMapping("/ingresar")
-    public ResponseEntity<GenericResponse> authenticateUser(@RequestBody IngresarDTO ingresarDTO)
+    public ResponseEntity<String> authenticateUser(@RequestBody IngresarDTO ingresarDTO)
     {
-        GenericResponse rta = new GenericResponse();
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(ingresarDTO.getUsername(),ingresarDTO.getPassword()));
     
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        
-        rta.isOk = true;
-        rta.message = "Se inicio correctamente";
-        
-        return ResponseEntity.ok(rta);
+
+         return new ResponseEntity<>("User signed-in succesfully!.",HttpStatus.OK);
     }
     
     @PostMapping("/registro")

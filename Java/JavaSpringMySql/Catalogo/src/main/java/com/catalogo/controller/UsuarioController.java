@@ -2,6 +2,7 @@ package com.catalogo.controller;
 
 import com.catalogo.dtos.UsuarioDTO;
 import com.catalogo.entities.Usuario;
+import com.catalogo.models.response.ErrorItemInfo;
 import com.catalogo.models.response.GenericResponse;
 import com.catalogo.models.response.UsuarioResponse;
 import com.catalogo.service.UsuarioServicio;
@@ -9,6 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -19,8 +22,17 @@ public class UsuarioController {
     private UsuarioServicio usuarioService;
 
     @PostMapping("/crearUsuario")
-    public ResponseEntity<GenericResponse> createUsuario(@RequestBody UsuarioDTO usuarioDTO) {
+    @PreAuthorize("hasAuthority('CLAIM_userType_ADMIN')")
+    public ResponseEntity<GenericResponse> createUsuario(@RequestBody UsuarioDTO usuarioDTO, BindingResult results) {
         GenericResponse rta = new GenericResponse();
+
+        if (results.hasErrors()) {
+            rta.isOk = false;
+            rta.message = "Hubo error";
+            results.getFieldErrors().stream().forEach(e -> {
+                rta.errors.add(new ErrorItemInfo(e.getField(), e.getDefaultMessage()));
+            });
+        }
 
         Usuario usuario = usuarioService.crearNuevoUsuario(usuarioDTO);
 
@@ -31,6 +43,7 @@ public class UsuarioController {
     }
 
     @PutMapping(value = "editar/{idUsuario}")
+    @PreAuthorize("hasAuthority('CLAIM_userType_ADMIN')")
     public ResponseEntity<GenericResponse> modifyUsuario(@PathVariable Long idUsuario, @RequestBody UsuarioDTO usuarioDTO) {
         GenericResponse rta = new GenericResponse();
 
@@ -54,6 +67,7 @@ public class UsuarioController {
     }
 
     @DeleteMapping("/eliminar/{idUsuario}")
+    @PreAuthorize("hasAuthority('CLAIM_userType_ADMIN')")
     public ResponseEntity<GenericResponse> deleteUsuario(@PathVariable Long idUsuario) {
         GenericResponse rta = new GenericResponse();
 
@@ -86,18 +100,14 @@ public class UsuarioController {
     }
 
     @GetMapping(value = "/lista", params = "name")
-    public ResponseEntity<List<Usuario>> listarUsuario(@RequestParam String name)
-    {
+    public ResponseEntity<List<Usuario>> listarUsuario(@RequestParam String name) {
         List<Usuario> listaUsuarios = usuarioService.encontrarUsuarioByNombre(name);
-        
-        if(listaUsuarios.isEmpty())
-        {
+
+        if (listaUsuarios.isEmpty()) {
             return ResponseEntity.noContent().build();
         }
-        
+
         return ResponseEntity.ok(listaUsuarios);
     }
-    
-    
-    
+
 }
