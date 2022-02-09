@@ -12,6 +12,7 @@ import java.util.List;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 @RestController
 @RequestMapping("/ticket")
@@ -27,20 +28,28 @@ public class TicketController {
     private UsuarioServicio servicioU;
 
     @PostMapping("/agregarTicket")
+    @PreAuthorize("hasAuthority('CLAIM_userType_ADMIN')")
     public ResponseEntity<GenericResponse> agregarTicket(@RequestBody TicketDTO ticketDTO) {
 
         GenericResponse rta = new GenericResponse();
 
-        Ticket ticket = servicioT.crearTicket(ticketDTO);
+        if (ticketDTO != null) {
+            Ticket ticket = servicioT.crearTicket(ticketDTO);
 
-        rta.id = ticket.getIdTicket();
-        rta.isOk = true;
-        rta.message = "Ticket creado correctamente";
-        return ResponseEntity.ok(rta);
+            rta.id = ticket.getIdTicket();
+            rta.isOk = true;
+            rta.message = "Ticket creado correctamente";
+            return ResponseEntity.ok(rta);
+        }else{
+            rta.isOk = false;
+            rta.message = "No se ha creado el ticket";
+            return ResponseEntity.badRequest().body(rta);
+        }
 
     }
 
     @PutMapping("/editarTicket/{idTicket}")
+    @PreAuthorize("hasAuthority('CLAIM_userType_ADMIN')")
     public ResponseEntity<GenericResponse> editarTicket(@RequestBody TicketDTO ticketDTO, @PathVariable Long idTicket) {
         GenericResponse rta = new GenericResponse();
         Ticket ticket = servicioT.buscarIdTicket(idTicket);
@@ -63,6 +72,7 @@ public class TicketController {
     }
 
     @DeleteMapping("/eliminarTicket/{idTicket}")
+    @PreAuthorize("hasAuthority('CLAIM_userType_ADMIN')")
     public ResponseEntity<GenericResponse> eliminarTicket(@PathVariable Long idTicket) {
         GenericResponse rta = new GenericResponse();
         Ticket ticket = servicioT.buscarIdTicket(idTicket);
