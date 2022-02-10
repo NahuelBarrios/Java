@@ -44,9 +44,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authenticated()
                 .and()
                 .formLogin()
-                .loginPage("/ingresar")
-                .and()
-                .httpBasic();
+                .loginPage("/ingresar");
+//                .and()
+//                .httpBasic();
     }
 
     @Override
@@ -60,13 +60,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return super.authenticationManagerBean();
     }
 
-//    @Override
-//    @Bean
-//    protected UserDetailsService userDetailsService() {
-//        UserDetails ramesh = User.builder().username("ramesh").password(passwordEncoder()
-//                .encode("password")).roles("USER").build();
-//        UserDetails admin = User.builder().username("admin").password(passwordEncoder()
-//                .encode("admin")).roles("ADMIN").build();
-//        return new InMemoryUserDetailsManager(ramesh, admin);
+//    @Autowired
+//    public void configureGlobal(AuthenticationManagerBuilder auth)
+//            throws Exception {
+//        auth.inMemoryAuthentication()
+//                .withUser("user").password(passwordEncoder().encode("aaa")).roles("USER")
+//                .and()
+//                .withUser("administrador").password(passwordEncoder().encode("aaa")).roles("USER", "ADMIN");
 //    }
 }
