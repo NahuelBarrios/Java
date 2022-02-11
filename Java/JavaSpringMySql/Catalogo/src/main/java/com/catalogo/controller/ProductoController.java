@@ -22,7 +22,6 @@ public class ProductoController {
     private ProductoServicio servicioP;
 
     @PostMapping("/crearProducto")
-    @PreAuthorize("hasAuthority('CLAIM_userType_ADMIN')")
     public ResponseEntity<GenericResponse> agregar(@RequestBody ProductoDTO productoDTO, BindingResult results) {
 
         GenericResponse rta = new GenericResponse();
@@ -44,7 +43,6 @@ public class ProductoController {
     }
 
     @PutMapping("/editarProducto/{idProducto}")
-    @PreAuthorize("hasAuthority('CLAIM_userType_ADMIN')")
     public ResponseEntity<GenericResponse> editar(@RequestBody ProductoDTO productoDTO, @PathVariable Long idProducto) {
         GenericResponse rta = new GenericResponse();
 
@@ -68,7 +66,6 @@ public class ProductoController {
     }
 
     @DeleteMapping("/eliminarProducto/{idProducto}")
-    @PreAuthorize("hasAuthority('CLAIM_userType_ADMIN')")
     public ResponseEntity<GenericResponse> eliminar(@PathVariable Long idProducto) {
         GenericResponse rta = new GenericResponse();
 

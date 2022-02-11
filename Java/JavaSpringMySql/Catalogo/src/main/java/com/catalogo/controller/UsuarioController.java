@@ -22,7 +22,6 @@ public class UsuarioController {
     private UsuarioServicio usuarioService;
 
     @PostMapping("/crearUsuario")
-    @PreAuthorize("hasAuthority('CLAIM_userType_ADMIN')")
     public ResponseEntity<GenericResponse> createUsuario(@RequestBody UsuarioDTO usuarioDTO, BindingResult results) {
         GenericResponse rta = new GenericResponse();
 
@@ -43,7 +42,6 @@ public class UsuarioController {
     }
 
     @PutMapping(value = "editar/{idUsuario}")
-    @PreAuthorize("hasAuthority('CLAIM_userType_ADMIN')")
     public ResponseEntity<GenericResponse> modifyUsuario(@PathVariable Long idUsuario, @RequestBody UsuarioDTO usuarioDTO) {
         GenericResponse rta = new GenericResponse();
 
@@ -67,7 +65,6 @@ public class UsuarioController {
     }
 
     @DeleteMapping("/eliminar/{idUsuario}")
-    @PreAuthorize("hasAuthority('CLAIM_userType_ADMIN')")
     public ResponseEntity<GenericResponse> deleteUsuario(@PathVariable Long idUsuario) {
         GenericResponse rta = new GenericResponse();
 
@@ -86,7 +83,7 @@ public class UsuarioController {
         }
     }
 
-    @GetMapping("/lista")
+    @GetMapping(value="/lista")
     public ResponseEntity<List<UsuarioResponse>> listarUsuarios() {
         List<Usuario> usuarios = usuarioService.listarPersonajes();
 
