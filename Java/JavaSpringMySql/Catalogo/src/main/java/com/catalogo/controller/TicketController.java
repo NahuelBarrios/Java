@@ -28,7 +28,6 @@ public class TicketController {
     private UsuarioServicio servicioU;
 
     @PostMapping("/agregarTicket")
-    @PreAuthorize("hasAuthority('CLAIM_userType_ADMIN')")
     public ResponseEntity<GenericResponse> agregarTicket(@RequestBody TicketDTO ticketDTO) {
 
         GenericResponse rta = new GenericResponse();
@@ -49,7 +48,6 @@ public class TicketController {
     }
 
     @PutMapping("/editarTicket/{idTicket}")
-    @PreAuthorize("hasAuthority('CLAIM_userType_ADMIN')")
     public ResponseEntity<GenericResponse> editarTicket(@RequestBody TicketDTO ticketDTO, @PathVariable Long idTicket) {
         GenericResponse rta = new GenericResponse();
         Ticket ticket = servicioT.buscarIdTicket(idTicket);
@@ -72,7 +70,6 @@ public class TicketController {
     }
 
     @DeleteMapping("/eliminarTicket/{idTicket}")
-    @PreAuthorize("hasAuthority('CLAIM_userType_ADMIN')")
     public ResponseEntity<GenericResponse> eliminarTicket(@PathVariable Long idTicket) {
         GenericResponse rta = new GenericResponse();
         Ticket ticket = servicioT.buscarIdTicket(idTicket);

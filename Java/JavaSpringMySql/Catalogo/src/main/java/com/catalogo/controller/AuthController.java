@@ -3,18 +3,14 @@ package com.catalogo.controller;
 import com.catalogo.dtos.IngresarDTO;
 import com.catalogo.dtos.RegistroDTO;
 import com.catalogo.entities.Rol;
-import com.catalogo.entities.User;
+import com.catalogo.entities.UsersLog;
 import com.catalogo.models.response.GenericResponse;
 import com.catalogo.repository.RolRepository;
 import com.catalogo.repository.UserRepository;
+import com.catalogo.service.UsersLongServicio;
 import java.util.Collections;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,9 +18,9 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/auth")
 public class AuthController {
     
-    @Autowired
-    private AuthenticationManager authenticationManager;
-    
+//    @Autowired
+//    private AuthenticationManager authenticationManager;
+//    
     @Autowired
     private UserRepository userRepository;
     
@@ -32,16 +28,61 @@ public class AuthController {
     private RolRepository roleRepository;
 
     @Autowired
+    private UsersLongServicio serviceUL;
+    
+    @Autowired
     private PasswordEncoder passwordEncoder;
  
-    @PostMapping("/ingresar")
-    public ResponseEntity<String> authenticateUser(@RequestBody IngresarDTO ingresarDTO)
-    {
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(ingresarDTO.getUsername(),ingresarDTO.getPassword()));
+//    @PostMapping("/ingresar")
+//    public ResponseEntity<String> authenticateUser(@RequestBody IngresarDTO ingresarDTO)
+//    {
+//        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(ingresarDTO.getUsername(),ingresarDTO.getPassword()));
+//    
+//        SecurityContextHolder.getContext().setAuthentication(authentication);
+//
+//         return new ResponseEntity<>("UsersLog signed-in succesfully!.",HttpStatus.OK);
+//    }
     
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-
-         return new ResponseEntity<>("User signed-in succesfully!.",HttpStatus.OK);
+//    @PostMapping("/ingresar")
+//    public ResponseEntity<GenericResponse> authenticateUser(@RequestBody IngresarDTO ingresarDTO)
+//    {
+//        GenericResponse rta = new GenericResponse();    
+//        
+//        //Chequea si el username existe en la db
+//        if(userRepository.existsByUsername(ingresarDTO.getUsername()))
+//        {
+//            Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(ingresarDTO.getUsername(),ingresarDTO.getPassword()));
+//            SecurityContextHolder.getContext().setAuthentication(authentication);
+//            
+//            rta.isOk = true;
+//            rta.message = "Bienvenido usuario: " + ingresarDTO.getUsername();
+//            return ResponseEntity.ok(rta);
+//            
+//        }
+//        else{
+//            rta.isOk = false;
+//            rta.message = "No existe ese nombre de usuario";
+//            return ResponseEntity.badRequest().body(rta);
+//        }
+//    }
+    
+    @PostMapping("/ingresar")
+    public ResponseEntity<?> authenticateUser(@RequestBody IngresarDTO ingresarDTO)
+    {
+        GenericResponse rta = new GenericResponse();
+        UsersLog userLogin = userRepository.findByUsername(ingresarDTO.getUsername());
+     
+        if(userLogin.getUsername().equals(ingresarDTO.getUsername())) //&& userLogin.getPassword().equals(ingresarDTO.getPassword())
+        {
+            rta.isOk = true;
+            rta.message = "Bienvenido usuario: " + userLogin.getUsername() + "-- Con rol: " + userLogin.getRoles();
+            return ResponseEntity.ok(rta);
+        }
+        else{
+            rta.isOk = false;
+            rta.message = "Ingrese bien el usuario o contraseña";
+            return ResponseEntity.badRequest().body(rta);
+        }
     }
     
     @PostMapping("/registro")
@@ -57,7 +98,7 @@ public class AuthController {
         }
       
         //Creo el objeto usuario
-        User user = new User();
+        UsersLog user = new UsersLog();
         user.setUsername(registroDTO.getUsername());
         user.setPassword(registroDTO.getPassword());
         
