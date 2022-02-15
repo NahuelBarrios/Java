@@ -83,7 +83,7 @@ public class UsuarioController {
         }
     }
 
-    @GetMapping(value="/lista")
+    @GetMapping(value = "/lista")
     public ResponseEntity<List<UsuarioResponse>> listarUsuarios() {
         List<Usuario> usuarios = usuarioService.listarPersonajes();
 
@@ -105,6 +105,28 @@ public class UsuarioController {
         }
 
         return ResponseEntity.ok(listaUsuarios);
+    }
+
+    @GetMapping(value = "/lista", params = "apellido")
+    public ResponseEntity<List<Usuario>> litarUsuariosApellido(@RequestParam String apellido) {
+        List<Usuario> usuarioList = usuarioService.listarPersonajes();
+        List<Usuario> listaApellidos = new ArrayList<>();
+
+        if (usuarioList != null) {
+            if (apellido != null || !apellido.isEmpty()) {
+                for (Usuario usuario : usuarioList) {
+                    if (usuario.getApellidoUsuario().equals(apellido)) {
+                        listaApellidos.add(usuario);
+                    }
+                }
+            } else {
+                return ResponseEntity.noContent().build();
+            }
+            return ResponseEntity.ok(listaApellidos);
+        } else {
+            return ResponseEntity.noContent().build();
+        }
+
     }
 
 }
